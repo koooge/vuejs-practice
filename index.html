@@ -10,7 +10,15 @@
   <script>
     const app = new Vue({
       el: '#app',
-      data: { message: 'Hello world' }
+      data: { message: '' },
+      created: function() {
+        this.message = 'Hello world';
+      },
+      mounted: function() {
+        setTimeout(() => {
+          this.message = 'こんにちは世界';
+        }, 5000);
+      }
     })
   </script>
 </body>
