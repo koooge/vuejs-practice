@@ -6,15 +6,31 @@
   <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-  <div id="app">
-    <input type="text" v-model="message">
-    <p>{{ message }}</p>
-  </div>
+  <div id="app" v-text="size_with_unit"></div>
   <script>
     const app = new Vue({
       el: '#app',
-      data: { message: 'Hello world'}
-    })
+      data: { size: 4689},
+      computed: {
+        size_with_unit: function() {
+          let res = '';
+          if (this.size >= 1024*1024) {
+            res = (this.size/1024/1024).toFixed(2) + 'MB';
+          } else if(this.size >= 1024) {
+            res = (this.size/1024).toFixed(2) + 'KB';
+          } else {
+            res = this.size + 'B';
+          }
+          return res;
+        }
+      }
+    });
+    app.size = 100;
+    console.log(app.size_with_unit);
+    app.size = 4096;
+    console.log(app.size_with_unit);
+    app.size = 14689000;
+    console.log(app.size_with_unit);
   </script>
 </body>
 </html>
