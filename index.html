@@ -6,31 +6,25 @@
   <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-  <div id="app" v-text="size_with_unit"></div>
+  <div id="app">
+    <button v-on:click="message += '!'">!を追加</button>
+    <p>{{ message }}</p>
+    <button v-on:click="showPropText">messageプロパティを表示</button>
+    <button v-on:click="showGivenText('こんにちは世界', $event)">引数のテキストを表示</button>
+  </div>
   <script>
     const app = new Vue({
       el: '#app',
-      data: { size: 4689},
-      computed: {
-        size_with_unit: function() {
-          let res = '';
-          if (this.size >= 1024*1024) {
-            res = (this.size/1024/1024).toFixed(2) + 'MB';
-          } else if(this.size >= 1024) {
-            res = (this.size/1024).toFixed(2) + 'KB';
-          } else {
-            res = this.size + 'B';
-          }
-          return res;
+      data: { message: 'Hello world' },
+      methods: {
+        showPropText: function(event) {
+          alert(this.message);
+        },
+        showGivenText: function(txt, event) {
+          alert(txt);
         }
       }
     });
-    app.size = 100;
-    console.log(app.size_with_unit);
-    app.size = 4096;
-    console.log(app.size_with_unit);
-    app.size = 14689000;
-    console.log(app.size_with_unit);
   </script>
 </body>
 </html>
